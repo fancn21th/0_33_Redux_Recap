@@ -1,37 +1,78 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { createStore, combineReducers } from 'redux'
 import './index.css'
-import { createStore } from 'redux'
-import Counter from './Components/Counter'
+import TodoApp from './Components/TodoApp'
 
 // this is a reducer
-const counter = (state = 0, action) => {
+const todo = (state, action) => {
     switch (action.type) {
-        case 'INCREMENT':
-            return state + 1;
-        case 'DECREMENT':
-            return state - 1;
+        case 'ADD_TODO':
+            return {
+                id: action.id,
+                text: action.text,
+                completed: false
+            };
+        case 'TOGGLE_TODO':
+            if (state.id !== action.id) {
+                return state;
+            }
+            return {
+                ...state,
+                completed: !state.completed
+            };
         default:
             return state;
     }
-}
+};
 
-const store = createStore(counter);
+const todos = (state = [], action) => {
+    switch (action.type) {
+        case 'ADD_TODO':
+            return [
+                ...state,
+                todo(undefined, action)
+            ];
+        case 'TOGGLE_TODO':
+            return state.map(t =>
+                todo(t, action)
+            );
+        default:
+            return state;
+    }
+};
+
+const visibilityFilter = (
+    state = 'SHOW_ALL',
+    action
+) => {
+    switch (action.type) {
+        case 'SET_VISIBILITY_FILTER':
+            return action.filter;
+        default:
+            return state;
+    }
+};
+
+const todoApp = combineReducers({
+    todos,
+    visibilityFilter
+});
+
+const store = createStore(todoApp);
 
 const render = () => {
+    console.log(store.getState())
     ReactDOM.render(
-        <Counter
-            value={store.getState()}
-            onIncrement={() =>
+        <TodoApp
+            onClick={() => {
                 store.dispatch({
-                    type: 'INCREMENT'
+                    type: 'ADD_TODO',
+                    text: `Test Todo ${Math.random() * 100}`,
+                    id: Date.now()
                 })
-            }
-            onDecrement={() =>
-                store.dispatch({
-                    type: 'DECREMENT'
-                })
-            }
+            }}
+            todos={store.getState().todos}
         />,
         document.getElementById('root')
     );
