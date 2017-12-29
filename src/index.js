@@ -65,10 +65,10 @@ const render = () => {
     console.log(store.getState())
     ReactDOM.render(
         <TodoApp
-            onClick={() => {
+            onClick={(title) => {
                 store.dispatch({
                     type: 'ADD_TODO',
-                    text: `Test Todo ${Math.random() * 100}`,
+                    text: title,
                     id: Date.now()
                 })
             }}
