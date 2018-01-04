@@ -82,13 +82,23 @@ const store = createStore(
 const render = () => {
     ReactDOM.render(
         <TodoApp
-            onClick={(title) => {
-                store.dispatch({
-                    type: 'ADD_TODO',
-                    text: title,
-                    id: Date.now()
-                })
-            }}
+            onClick={
+                title => {
+                    store.dispatch({
+                        type: 'ADD_TODO',
+                        text: title,
+                        id: Date.now()
+                    })
+                }
+            }
+            onToogle={
+                todoId => {
+                    store.dispatch({
+                        type: 'TOGGLE_TODO',
+                        id: todoId
+                    })
+                }
+            }
             todos={store.getState().todos}
         />,
         document.getElementById('root')

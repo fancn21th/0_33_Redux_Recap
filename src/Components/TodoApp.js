@@ -24,7 +24,15 @@ const TodoApp = (props) => (
             <ul>
             {
                 props.todos.map((todo) => (
-                    <li key={todo.id}>
+                    <li
+                        key={todo.id}
+                        onClick={
+                            () => props.onToogle(todo.id)
+                        }
+                        style={{
+                            textDecoration: todo.completed ? 'line-through' : 'none'
+                        }}
+                    >
                         {todo.text}
                     </li>
                 ))
