@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore, combineReducers } from 'redux'
+import { createStore } from 'redux'
+// import { createStore, combineReducers } from 'redux'
 import './index.css'
 import TodoApp from './Components/TodoApp'
 
@@ -54,15 +55,31 @@ const visibilityFilter = (
     }
 };
 
+const combineReducers = (reducers) => {
+    return (state = {}, action) => {
+        return Object.keys(reducers).reduce(
+            (nextState, key) => {
+                nextState[key] = reducers[key](state[key], action)
+                return nextState
+            },
+            {}
+        )
+    }
+};
+
 const todoApp = combineReducers({
     todos,
     visibilityFilter
 });
 
-const store = createStore(todoApp);
+const store = createStore(
+    todoApp,
+    // https://github.com/zalmoxisus/redux-devtools-extension#usage
+    // enable redux-devtools-extension
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const render = () => {
-    console.log(store.getState())
     ReactDOM.render(
         <TodoApp
             onClick={(title) => {
