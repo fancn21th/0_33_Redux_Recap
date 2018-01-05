@@ -1,4 +1,5 @@
 import React from 'react'
+import FilterLink from './FilterLink'
 
 const TodoApp = (props) => (
     <div>
@@ -38,6 +39,33 @@ const TodoApp = (props) => (
                 ))
             }
             </ul>
+        </div>
+        <div>
+            Show:
+            &nbsp;&nbsp;
+            <FilterLink
+                filter='SHOW_ALL'
+                onClick={props.onFilter}
+                currentFilter={props.currentFilter}
+            >
+                All
+            </FilterLink>
+            &nbsp;&nbsp;
+            <FilterLink
+                filter='SHOW_ACTIVE'
+                onClick={props.onFilter}
+                currentFilter={props.currentFilter}
+            >
+                ACTIVE
+            </FilterLink>
+            &nbsp;&nbsp;
+            <FilterLink
+                filter='SHOW_COMPLETED'
+                onClick={props.onFilter}
+                currentFilter={props.currentFilter}
+            >
+                COMPLETED
+            </FilterLink>
         </div>
     </div>
 )
