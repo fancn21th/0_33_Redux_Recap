@@ -14,7 +14,7 @@ const TodoApp = (props) => (
             <button
                 onClick={
                     () => {
-                        props.onClick(this.input.value)
+                        if(this.input.value) props.onClick(this.input.value)
                         this.input.value = ''
                     }
                 } >
