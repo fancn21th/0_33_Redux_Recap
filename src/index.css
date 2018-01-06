@@ -1,6 +1,7 @@
 body {
-    padding: 0px;
+    padding: 50px;
     margin: 0px;
     background: #eeeeee;
-    font-size: xx-large;
+    font-size: large;
+    font-weight: bolder;
 }

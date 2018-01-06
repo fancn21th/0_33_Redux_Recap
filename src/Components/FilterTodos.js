@@ -8,6 +8,7 @@ const FilterTodos = (
     }) => (
     <div>
         Show:
+        &nbsp;&nbsp;
         <FilterTodoLink
             currentFilter={currentFilter}
             filter='SHOW_ALL'
@@ -15,6 +16,7 @@ const FilterTodos = (
         >
             All
         </FilterTodoLink>
+        &nbsp;&nbsp;
         <FilterTodoLink
             currentFilter={currentFilter}
             filter='SHOW_ACTIVE'
@@ -22,6 +24,7 @@ const FilterTodos = (
         >
             ACTIVE
         </FilterTodoLink>
+        &nbsp;&nbsp;
         <FilterTodoLink
             currentFilter={currentFilter}
             filter='SHOW_COMPLETED'
