@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import { createStore, combineReducers } from 'redux'
 import './index.css'
@@ -59,8 +60,22 @@ const todoApp = combineReducers({
     visibilityFilter
 });
 
+class Provider extends Component {
+    getChildContext() {
+        return { store: this.props.store}
+    }
+
+    render(){
+        return this.props.children
+    }
+}
+// the filed name is kind of odd
+Provider.childContextTypes = {
+    store: PropTypes.object
+}
+
 ReactDOM.render(
-    <TodoApp
+    <Provider
         store={
             createStore(
                 todoApp,
@@ -69,7 +84,9 @@ ReactDOM.render(
                 window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
             )
         }
-    />,
+    >
+        <TodoApp/>
+    </Provider>,
     document.getElementById('root')
 );
 

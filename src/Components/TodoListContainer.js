@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import TodoList from './TodoList'
 
 const getVisibleTodos = (todos, filter) => {
@@ -15,7 +16,7 @@ const getVisibleTodos = (todos, filter) => {
 
 class TodoListConainter extends Component {
     componentDidMount() {
-        const { store } = this.props
+        const { store } = this.context
         this.unsubscribe = store.subscribe(() => this.forceUpdate())
     }
 
@@ -24,8 +25,7 @@ class TodoListConainter extends Component {
     }
 
     render() {
-        const props = this.props
-        const { store } = props
+        const { store } = this.context
         return (
            <TodoList
                 todos={
@@ -43,6 +43,10 @@ class TodoListConainter extends Component {
            />
         )
     }
+}
+
+TodoListConainter.contextTypes = {
+    store: PropTypes.object
 }
 
 export default TodoListConainter

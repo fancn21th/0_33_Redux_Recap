@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import FilterTodoLink from './FilterTodoLink'
 
 // data init and behavior handler
 class FilterTodoLinkContainer extends Component {
     componentDidMount() {
-        const { store } = this.props
+        const { store } = this.context
         this.unsubscribe = store.subscribe(() => this.forceUpdate())
     }
 
@@ -13,7 +14,8 @@ class FilterTodoLinkContainer extends Component {
     }
 
     render(){
-        const { store, filter, children } = this.props
+        const { filter, children } = this.props
+        const { store } = this.context
         return (
             <FilterTodoLink
                 active={ store.getState().visibilityFilter === filter }
@@ -30,6 +32,10 @@ class FilterTodoLinkContainer extends Component {
             </FilterTodoLink>
         )
     }
+}
+
+FilterTodoLinkContainer.contextTypes = {
+    store: PropTypes.object
 }
 
 export default FilterTodoLinkContainer

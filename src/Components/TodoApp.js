@@ -3,11 +3,11 @@ import AddTodo from './AddTodo'
 import TodoListConainter from './TodoListContainer'
 import FilterTodos from './FilterTodos'
 
-const TodoApp = ({ store }) => (
+const TodoApp = () => (
     <div>
-        <AddTodo store={store}/>
-        <TodoListConainter store={store}/>
-        <FilterTodos store={store}/>
+        <AddTodo/>
+        <TodoListConainter/>
+        <FilterTodos/>
     </div>
 )
 
