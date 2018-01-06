@@ -42,18 +42,6 @@ const todos = (state = [], action) => {
     }
 };
 
-const getVisibleTodos = (todos, filter) => {
-    switch (filter) {
-        case 'SHOW_ACTIVE':
-            return todos.filter(todo => !todo.completed);
-        case 'SHOW_COMPLETED':
-            return todos.filter(todo => todo.completed);
-        case 'SHOW_ALL':
-        default:
-            return todos;
-    }
-}
-
 const visibilityFilter = (
     state = 'SHOW_ALL',
     action
@@ -91,39 +79,28 @@ const store = createStore(
 );
 
 const render = () => {
-    const todos = getVisibleTodos(
-        store.getState().todos,
-        store.getState().visibilityFilter
-    )
     ReactDOM.render(
         <TodoApp
-            onClick={
-                title => {
-                    store.dispatch({
-                        type: 'ADD_TODO',
-                        text: title,
-                        id: Date.now()
-                    })
-                }
+            {...store.getState()}
+            onToggleTodo={
+                id => store.dispatch({
+                    type: 'TOGGLE_TODO',
+                    id,
+                })
             }
-            onToogle={
-                todoId => {
-                    store.dispatch({
-                        type: 'TOGGLE_TODO',
-                        id: todoId
-                    })
-                }
+            onAddTodo={
+                text => store.dispatch({
+                    type: 'ADD_TODO',
+                    id: Date.now(),
+                    text,
+                })
             }
-            onFilter={
-                filter => {
-                    store.dispatch({
-                        type: 'SET_VISIBILITY_FILTER',
-                        filter,
-                    })
-                }
+            onFilterTodos={
+                filter => store.dispatch({
+                    type: 'SET_VISIBILITY_FILTER',
+                    filter,
+                })
             }
-            todos={todos}
-            currentFilter={store.getState().visibilityFilter}
         />,
         document.getElementById('root')
     );

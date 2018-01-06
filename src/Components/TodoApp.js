@@ -1,72 +1,40 @@
 import React from 'react'
-import FilterLink from './FilterLink'
+import AddTodo from './AddTodo'
+import TodoList from './TodoList'
+import FilterTodos from './FilterTodos'
 
-const TodoApp = (props) => (
+const getVisibleTodos = (todos, filter) => {
+    switch (filter) {
+        case 'SHOW_ACTIVE':
+            return todos.filter(todo => !todo.completed);
+        case 'SHOW_COMPLETED':
+            return todos.filter(todo => todo.completed);
+        case 'SHOW_ALL':
+        default:
+            return todos;
+    }
+}
+
+const TodoApp = (
+    {
+        todos,
+        visibilityFilter,
+        onToggleTodo,
+        onAddTodo,
+        onFilterTodos
+    }) => (
     <div>
-        <div>
-            <h4>a Simple TODO List</h4>
-        </div>
-        <div>
-            <input
-                type="text"
-                ref={node => this.input = node}
-            />
-            <button
-                onClick={
-                    () => {
-                        if(this.input.value) props.onClick(this.input.value)
-                        this.input.value = ''
-                    }
-                } >
-                Add a Todo
-            </button>
-        </div>
-        <div>
-            <ul>
-            {
-                props.todos.map((todo) => (
-                    <li
-                        key={todo.id}
-                        onClick={
-                            () => props.onToogle(todo.id)
-                        }
-                        style={{
-                            textDecoration: todo.completed ? 'line-through' : 'none'
-                        }}
-                    >
-                        {todo.text}
-                    </li>
-                ))
-            }
-            </ul>
-        </div>
-        <div>
-            Show:
-            &nbsp;&nbsp;
-            <FilterLink
-                filter='SHOW_ALL'
-                onClick={props.onFilter}
-                currentFilter={props.currentFilter}
-            >
-                All
-            </FilterLink>
-            &nbsp;&nbsp;
-            <FilterLink
-                filter='SHOW_ACTIVE'
-                onClick={props.onFilter}
-                currentFilter={props.currentFilter}
-            >
-                ACTIVE
-            </FilterLink>
-            &nbsp;&nbsp;
-            <FilterLink
-                filter='SHOW_COMPLETED'
-                onClick={props.onFilter}
-                currentFilter={props.currentFilter}
-            >
-                COMPLETED
-            </FilterLink>
-        </div>
+        <AddTodo
+            onAddTodo={onAddTodo}
+        />
+        <TodoList
+            todos={getVisibleTodos(todos, visibilityFilter)}
+            onToggleTodo={onToggleTodo}
+        />
+        <FilterTodos
+            currentFilter={visibilityFilter}
+            onFilterTodos={onFilterTodos}
+        />
     </div>
 )
 

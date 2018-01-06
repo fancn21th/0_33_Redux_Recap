@@ -1,23 +1,32 @@
 import React from 'react'
 
-const FilterLink = ({ onClick, filter, currentFilter, children }) => {
-    if(currentFilter === filter){
+const FilterTodoLink = (
+    {
+        currentFilter,
+        filter,
+        children,
+        onClick
+    }) => {
+
+    if (filter === currentFilter) {
         return (
             <span>{children}</span>
         )
     }
+
     return (
         <a
             href='#'
             onClick={
                 e => {
-                    e.preventDefault()
+                    e.preventDefault(filter)
                     onClick(filter)
                 }
-            }>
+            }
+        >
             {children}
         </a>
     )
 }
 
-export default FilterLink
+export default FilterTodoLink
