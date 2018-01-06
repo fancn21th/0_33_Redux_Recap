@@ -1,37 +1,21 @@
 import React from 'react'
-import FilterTodoLink from './FilterTodoLink'
+import FilterTodoLinkContainer from './FilterTodoLinkContainer'
 
-const FilterTodos = (
-    {
-        currentFilter,
-        onFilterTodos
-    }) => (
+const FilterTodos = ({ store }) => (
     <div>
         Show:
         &nbsp;&nbsp;
-        <FilterTodoLink
-            currentFilter={currentFilter}
-            filter='SHOW_ALL'
-            onClick={onFilterTodos}
-        >
+        <FilterTodoLinkContainer store={store} filter='SHOW_ALL'>
             All
-        </FilterTodoLink>
+        </FilterTodoLinkContainer>
         &nbsp;&nbsp;
-        <FilterTodoLink
-            currentFilter={currentFilter}
-            filter='SHOW_ACTIVE'
-            onClick={onFilterTodos}
-        >
+        <FilterTodoLinkContainer store={store} filter='SHOW_ACTIVE'>
             ACTIVE
-        </FilterTodoLink>
+        </FilterTodoLinkContainer>
         &nbsp;&nbsp;
-        <FilterTodoLink
-            currentFilter={currentFilter}
-            filter='SHOW_COMPLETED'
-            onClick={onFilterTodos}
-        >
+        <FilterTodoLinkContainer store={store} filter='SHOW_COMPLETED'>
             COMPLETED
-        </FilterTodoLink>
+        </FilterTodoLinkContainer>
     </div>
 )
 

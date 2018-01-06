@@ -2,13 +2,12 @@ import React from 'react'
 
 const FilterTodoLink = (
     {
-        currentFilter,
-        filter,
+        active,
         children,
         onClick
     }) => {
 
-    if (filter === currentFilter) {
+    if (active) {
         return (
             <span>{children}</span>
         )
@@ -19,8 +18,8 @@ const FilterTodoLink = (
             href='#'
             onClick={
                 e => {
-                    e.preventDefault(filter)
-                    onClick(filter)
+                    e.preventDefault()
+                    onClick()
                 }
             }
         >

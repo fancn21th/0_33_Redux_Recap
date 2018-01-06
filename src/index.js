@@ -4,7 +4,7 @@ import { createStore, combineReducers } from 'redux'
 import './index.css'
 import TodoApp from './Components/TodoApp'
 
-// this is a reducer
+// this is a list of reducer methods
 const todo = (state, action) => {
     switch (action.type) {
         case 'ADD_TODO':
@@ -54,6 +54,25 @@ const visibilityFilter = (
     }
 };
 
+const todoApp = combineReducers({
+    todos,
+    visibilityFilter
+});
+
+ReactDOM.render(
+    <TodoApp
+        store={
+            createStore(
+                todoApp,
+                // https://github.com/zalmoxisus/redux-devtools-extension#usage
+                // enable redux-devtools-extension
+                window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+            )
+        }
+    />,
+    document.getElementById('root')
+);
+
 // const combineReducers = (reducers) => {
 //     return (state = {}, action) => {
 //         return Object.keys(reducers).reduce(
@@ -65,46 +84,3 @@ const visibilityFilter = (
 //         )
 //     }
 // };
-
-const todoApp = combineReducers({
-    todos,
-    visibilityFilter
-});
-
-const store = createStore(
-    todoApp,
-    // https://github.com/zalmoxisus/redux-devtools-extension#usage
-    // enable redux-devtools-extension
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
-
-const render = () => {
-    ReactDOM.render(
-        <TodoApp
-            {...store.getState()}
-            onToggleTodo={
-                id => store.dispatch({
-                    type: 'TOGGLE_TODO',
-                    id,
-                })
-            }
-            onAddTodo={
-                text => store.dispatch({
-                    type: 'ADD_TODO',
-                    id: Date.now(),
-                    text,
-                })
-            }
-            onFilterTodos={
-                filter => store.dispatch({
-                    type: 'SET_VISIBILITY_FILTER',
-                    filter,
-                })
-            }
-        />,
-        document.getElementById('root')
-    );
-}
-
-store.subscribe(render);
-render();

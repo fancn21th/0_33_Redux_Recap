@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddTodo = ({ onAddTodo }) => {
+const AddTodo = ({ store }) => {
     let txtInput;
     return (
         <div>
@@ -13,8 +13,14 @@ const AddTodo = ({ onAddTodo }) => {
             <button
                 onClick={
                     () => {
-                        if (txtInput.value) onAddTodo(txtInput.value)
-                        txtInput.value = ''
+                        if(txtInput.value){
+                            store.dispatch({
+                                type: 'ADD_TODO',
+                                id: Date.now(),
+                                text: txtInput.value,
+                            })
+                            txtInput.value = ''
+                        }
                     }
                 }
             >
