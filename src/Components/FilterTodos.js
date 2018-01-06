@@ -1,19 +1,19 @@
 import React from 'react'
 import FilterTodoLinkContainer from './FilterTodoLinkContainer'
 
-const FilterTodos = ({ store }) => (
+const FilterTodos = () => (
     <div>
         Show:
         &nbsp;&nbsp;
-        <FilterTodoLinkContainer store={store} filter='SHOW_ALL'>
+        <FilterTodoLinkContainer filter='SHOW_ALL'>
             All
         </FilterTodoLinkContainer>
         &nbsp;&nbsp;
-        <FilterTodoLinkContainer store={store} filter='SHOW_ACTIVE'>
+        <FilterTodoLinkContainer filter='SHOW_ACTIVE'>
             ACTIVE
         </FilterTodoLinkContainer>
         &nbsp;&nbsp;
-        <FilterTodoLinkContainer store={store} filter='SHOW_COMPLETED'>
+        <FilterTodoLinkContainer filter='SHOW_COMPLETED'>
             COMPLETED
         </FilterTodoLinkContainer>
     </div>
