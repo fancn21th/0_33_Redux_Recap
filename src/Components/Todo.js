@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Todo = ({todo, onClick}) => (
+const Todo = ({ text, completed, onClick}) => (
     <li
         onClick={onClick}
-        style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+        style={{ textDecoration: completed ? 'line-through' : 'none' }}
     >
-        {todo.text}
+        {text}
     </li>
 )
 
