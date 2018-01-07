@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import addTodo from '../Actions/addTodo'
 
 let AddTodo = ({ dispatch }) => {
     let txtInput;
@@ -15,11 +16,7 @@ let AddTodo = ({ dispatch }) => {
                 onClick={
                     () => {
                         if(txtInput.value){
-                            dispatch({
-                                type: 'ADD_TODO',
-                                id: Date.now(),
-                                text: txtInput.value,
-                            })
+                            dispatch(addTodo(txtInput.value))
                             txtInput.value = ''
                         }
                     }
