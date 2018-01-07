@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
-const AddTodo = ( props, { store }) => {
+let AddTodo = ({ dispatch }) => {
     let txtInput;
     return (
         <div>
@@ -15,7 +15,7 @@ const AddTodo = ( props, { store }) => {
                 onClick={
                     () => {
                         if(txtInput.value){
-                            store.dispatch({
+                            dispatch({
                                 type: 'ADD_TODO',
                                 id: Date.now(),
                                 text: txtInput.value,
@@ -31,8 +31,14 @@ const AddTodo = ( props, { store }) => {
     )
 }
 
-AddTodo.contextTypes = {
-    store: PropTypes.object
-}
+AddTodo = connect(
+    null, // no need to subscribe to store
+    null, // dispatch as props by default
+    // dispatch => {
+    //     return {
+    //         dispatch,
+    //     }
+    // }
+)(AddTodo)
 
 export default AddTodo

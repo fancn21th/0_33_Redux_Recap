@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import TodoList from './TodoList'
 
 const getVisibleTodos = (todos, filter) => {
@@ -14,39 +13,20 @@ const getVisibleTodos = (todos, filter) => {
     }
 }
 
-class TodoListConainter extends Component {
-    componentDidMount() {
-        const { store } = this.context
-        this.unsubscribe = store.subscribe(() => this.forceUpdate())
-    }
+const mapStateToProps = (state) => ({
+    todos: getVisibleTodos(
+        state.todos,
+        state.visibilityFilter
+    )
+})
 
-    componentWillUnmount() {
-        this.unsubscribe()
-    }
+const mapDispatchToProps = (dispatch) => ({
+    onToggleTodo: id => dispatch({
+        type: 'TOGGLE_TODO',
+        id,
+    })
+})
 
-    render() {
-        const { store } = this.context
-        return (
-           <TodoList
-                todos={
-                    getVisibleTodos(
-                        store.getState().todos,
-                        store.getState().visibilityFilter
-                    )
-                }
-                onToggleTodo={
-                    id => store.dispatch({
-                        type: 'TOGGLE_TODO',
-                        id,
-                    })
-                }
-           />
-        )
-    }
-}
-
-TodoListConainter.contextTypes = {
-    store: PropTypes.object
-}
+const TodoListConainter = connect(mapStateToProps, mapDispatchToProps)(TodoList)
 
 export default TodoListConainter

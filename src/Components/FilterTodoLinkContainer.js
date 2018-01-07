@@ -1,41 +1,23 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import FilterTodoLink from './FilterTodoLink'
 
-// data init and behavior handler
-class FilterTodoLinkContainer extends Component {
-    componentDidMount() {
-        const { store } = this.context
-        this.unsubscribe = store.subscribe(() => this.forceUpdate())
-    }
-
-    componentWillUnmount(){
-        this.unsubscribe()
-    }
-
-    render(){
-        const { filter, children } = this.props
-        const { store } = this.context
-        return (
-            <FilterTodoLink
-                active={ store.getState().visibilityFilter === filter }
-                onClick={
-                    () => {
-                        store.dispatch({
-                            type: 'SET_VISIBILITY_FILTER',
-                            filter,
-                        })
-                    }
-                }
-            >
-                {children}
-            </FilterTodoLink>
-        )
+const mapStateToProps = (state, ownProps) => {
+    return {
+        active: state.visibilityFilter === ownProps.filter,
     }
 }
 
-FilterTodoLinkContainer.contextTypes = {
-    store: PropTypes.object
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        onClick: filter => {
+            dispatch({
+                type: 'SET_VISIBILITY_FILTER',
+                filter: ownProps.filter,
+            })
+        }
+    }
 }
+
+const FilterTodoLinkContainer = connect(mapStateToProps, mapDispatchToProps)(FilterTodoLink)
 
 export default FilterTodoLinkContainer
