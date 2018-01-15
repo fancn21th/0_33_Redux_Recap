@@ -3,10 +3,10 @@ import AddTodo from './AddTodo'
 import TodoListConainter from './TodoListContainer'
 import FilterTodos from './FilterTodos'
 
-const TodoApp = () => (
+const TodoApp = ({ match }) => (
     <div>
         <AddTodo/>
-        <TodoListConainter/>
+        <TodoListConainter filter={match.params.filter || 'all'}/>
         <FilterTodos/>
     </div>
 )
