@@ -1,8 +1,6 @@
-const toogleTodo = (id) => {
-    return {
-        type: 'TOGGLE_TODO',
-        id,
-    }
-}
+const toogleTodo = id => ({
+    type: 'TOGGLE_TODO',
+    id,
+})
 
 export default toogleTodo

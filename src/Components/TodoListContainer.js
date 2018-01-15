@@ -22,7 +22,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    onToggleTodo: id => dispatch(toggleTodo(id))
+    onToggleTodo(id){
+        dispatch(toggleTodo(id))
+    }
 })
 
 const TodoListConainter = connect(mapStateToProps, mapDispatchToProps)(TodoList)
