@@ -1,6 +1,7 @@
-import { connect } from 'react-redux'
-import TodoList from './TodoList'
-import toggleTodo from '../Actions/toggleTodo'
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import TodoList from './TodoList';
+import toggleTodo from '../Actions/toggleTodo';
 
 const getVisibleTodos = (todos, filter) => {
     switch (filter) {
@@ -17,7 +18,7 @@ const getVisibleTodos = (todos, filter) => {
 const mapStateToProps = (state, ownProps) => ({
     todos: getVisibleTodos(
         state.todos,
-        ownProps.filter
+        ownProps.match.params.filter
     )
 })
 
@@ -27,6 +28,8 @@ const mapDispatchToProps = (dispatch) => ({
     }
 })
 
-const TodoListConainter = connect(mapStateToProps, mapDispatchToProps)(TodoList)
+const TodoListConainter = withRouter(
+    connect(mapStateToProps, mapDispatchToProps)(TodoList)
+);
 
 export default TodoListConainter
