@@ -12,4 +12,8 @@ todo XII
 
 todo XIII
 - turn todos from array into object
+
+todo XIV
+- use fake api in place of localStorage
+- make the dispatch method of store can handle Promise asn return object
  

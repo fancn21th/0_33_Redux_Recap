@@ -1,20 +1,27 @@
 import { createStore } from 'redux';
-import throttle from 'lodash/throttle';
 import todoApp from './Reducers';
-import { loadState, saveState } from "./localStorage";
+
+// by default dispatch can only return a plain object
+// so we need to make it works for Promise either
+const addPromiseSupportToDispatch = (store) => {
+  const rawDispatch = store.dispatch;
+
+  return (action) => {
+    if(typeof action.then === 'function'){
+      return action.then(rawDispatch);
+    }
+    return rawDispatch;
+  }
+};
 
 const configureStore = () => {
-  const persistedState = loadState();
   const store = createStore(
       todoApp,
-      persistedState,
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
-  store.subscribe(throttle(() => {
-    saveState({
-        todos: store.getState().todos,
-    });
-  }, 1000));
+
+  store.dispatch = addPromiseSupportToDispatch(store);
+
   return store;
 };
 
