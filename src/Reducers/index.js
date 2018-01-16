@@ -10,6 +10,7 @@ export default todoApp;
 
 // named export is for selectors (so how we call it)
 // the state refers to the state of just the corresponding reducer
+
 export const getVisibleTodos = (state, filter) =>
     fromTodos.getVisibleTodos(state.todos, filter);
 

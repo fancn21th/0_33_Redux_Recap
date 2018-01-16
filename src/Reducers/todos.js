@@ -37,6 +37,8 @@ export default todos;
 export const getAllTodos = state => state.allIds.map(id => state.byId[id]);
 
 // named export is for selectors (so how we call it)
+// all the state shape knowledge is encapsulated in the selector.
+// components no need to update when state shape evolve
 export const getVisibleTodos = (state, filter) => {
     var allTodos = getAllTodos(state);
     switch (filter) {
