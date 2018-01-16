@@ -1,52 +1,52 @@
-const todo = (state, action) => {
-    switch (action.type) {
-        case 'ADD_TODO':
-            return {
-                id: action.id,
-                text: action.text,
-                completed: false
-            };
-        case 'TOGGLE_TODO':
-            if (state.id !== action.id) {
-                return state;
-            }
-            return {
-                ...state,
-                completed: !state.completed
-            };
-        default:
-            return state;
-    }
+import { combineReducers } from 'redux';
+import todo from './todo';
+
+const byId = (state = {}, action) => {
+  switch (action.type) {
+      case 'ADD_TODO':
+      case 'TOGGLE_TODO':
+          return {
+              ...state,
+              [action.id]: todo(state[action.id], action),
+          };
+      default:
+          return state;
+  }
 };
 
-const todos = (state = [], action) => {
+const allIds = (state = [], action) => {
     switch (action.type) {
         case 'ADD_TODO':
             return [
                 ...state,
-                todo(undefined, action)
+                action.id,
             ];
-        case 'TOGGLE_TODO':
-            return state.map(t =>
-                todo(t, action)
-            );
         default:
             return state;
     }
 };
 
+const todos = combineReducers({
+   byId,
+   allIds,
+});
+
 // as convention export default is for reducer itself
 export default todos;
 
+export const getAllTodos = state => state.allIds.map(id => state.byId[id]);
+
 // named export is for selectors (so how we call it)
 export const getVisibleTodos = (state, filter) => {
+    var allTodos = getAllTodos(state);
     switch (filter) {
-        case 'active':
-            return state.filter(todo => !todo.completed);
-        case 'completed':
-            return state.filter(todo => todo.completed);
         case 'all':
+            return allTodos;
+        case 'active':
+            return allTodos.filter(todo => !todo.completed);
+        case 'completed':
+            return allTodos.filter(todo => todo.completed);
         default:
-            return state;
+            throw new Error(`Unknown filter: ${filter}.`);
     }
-}
+};
