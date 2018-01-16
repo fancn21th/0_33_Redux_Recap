@@ -35,4 +35,18 @@ const todos = (state = [], action) => {
     }
 };
 
+// as convention export default is for reducer itself
 export default todos;
+
+// named export is for selectors (so how we call it)
+export const getVisibleTodos = (state, filter) => {
+    switch (filter) {
+        case 'active':
+            return state.filter(todo => !todo.completed);
+        case 'completed':
+            return state.filter(todo => todo.completed);
+        case 'all':
+        default:
+            return state;
+    }
+}

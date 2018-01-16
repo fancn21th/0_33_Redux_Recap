@@ -7,4 +7,6 @@ todo XI
 
 todo XII
 - Like we bring in connect method to avoid pass params down, we use withRouter for the same purpose
+- mapDispatchToProps shorthand notation
+- colocate selectors with reducer 
  
