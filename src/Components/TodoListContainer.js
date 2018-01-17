@@ -5,7 +5,6 @@ import { getVisibleTodos, getIsFetching } from "../Reducers";
 import TodoList from './TodoList';
 import toggleTodo from '../Actions/toggleTodo';
 import fetchTodos from '../Actions/fetchTodos';
-import requestTodos from '../Actions/requestTodos';
 
 class TodoListContainer extends Component {
     componentDidMount() {
@@ -19,8 +18,7 @@ class TodoListContainer extends Component {
     }
 
     fetchData() {
-        const { filter, requestTodos, fetchTodos } = this.props;
-        requestTodos(filter);
+        const { filter, fetchTodos } = this.props;
         fetchTodos(filter);
     }
 
@@ -58,7 +56,6 @@ TodoListContainer = withRouter(
     connect(mapStateToProps, {
         toggleTodo, // mapDispatchToProps shorthand notation, no need to call dispatch explicitly
         fetchTodos,
-        requestTodos,
     })(TodoListContainer)
 );
 

@@ -29,3 +29,6 @@ todo XVII
 
 todo XVIII
 - loading indicators
+
+todo XIX
+- introduce thunk by redux-thunk 
