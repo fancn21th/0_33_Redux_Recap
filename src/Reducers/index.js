@@ -17,3 +17,5 @@ export default todos;
 
 export const getVisibleTodos = (state, filter) =>
     fromList.getIds(state.listByFilter[filter]).map(id => fromById.getTodo(state.byId, id));
+
+export const getIsFetching = (state, filter) => fromList.getIsFetching(state.listByFilter[filter]);

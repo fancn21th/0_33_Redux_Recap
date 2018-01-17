@@ -26,3 +26,6 @@ todo XVI
 
 todo XVII
 - reducer refactor
+
+todo XVIII
+- loading indicators
