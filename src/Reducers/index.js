@@ -1,27 +1,19 @@
-// this is a list of reducer methods
-import { combineReducers } from "redux";
-import todos, * as fromTodos from './todos';
+import { combineReducers } from 'redux';
+import byId, * as fromById from './byId';
+import createList, * as fromList from './createList';
 
-const todoApp = combineReducers({
-    todos,
+const listByFilter = combineReducers({
+    all: createList('all'),
+    active: createList('active'),
+    completed: createList('completed'),
 });
 
-export default todoApp;
+const todos = combineReducers({
+    byId,
+    listByFilter,
+});
 
-// named export is for selectors (so how we call it)
-// the state refers to the state of just the corresponding reducer
+export default todos;
 
 export const getVisibleTodos = (state, filter) =>
-    fromTodos.getVisibleTodos(state.todos, filter);
-
-// const combineReducers = (reducers) => {
-//     return (state = {}, action) => {
-//         return Object.keys(reducers).reduce(
-//             (nextState, key) => {
-//                 nextState[key] = reducers[key](state[key], action)
-//                 return nextState
-//             },
-//             {}
-//         )
-//     }
-// };
+    fromList.getIds(state.listByFilter[filter]).map(id => fromById.getTodo(state.byId, id));

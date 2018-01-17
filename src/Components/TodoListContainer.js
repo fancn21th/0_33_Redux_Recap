@@ -23,9 +23,11 @@ class TodoListContainer extends Component {
     }
 
     render() {
+        const { todos, toggleTodo } = this.props;
         return (
            <TodoList
-               {...this.props}
+               todos={todos}
+               onToggleTodo={toggleTodo}
            />
         );
     }
@@ -48,7 +50,7 @@ const mapStateToProps = (state, { match }) => {
 
 TodoListContainer = withRouter(
     connect(mapStateToProps, {
-        onToggleTodo: toggleTodo, // mapDispatchToProps shorthand notation, no need to call dispatch explicitly
+        toggleTodo, // mapDispatchToProps shorthand notation, no need to call dispatch explicitly
         fetchTodos,
     })(TodoListContainer)
 );
