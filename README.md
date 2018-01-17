@@ -22,4 +22,5 @@ todo XV
 
 todo XVI
 - 3rd party middlewars in place of homemade peers
+- save different state for each filter due to the filter executed on server end 
  
