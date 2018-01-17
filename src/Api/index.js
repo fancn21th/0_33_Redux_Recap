@@ -23,11 +23,12 @@ const fakeTodos = {
 };
 
 export const fetchTodos = (filter) => delay(500).then(() => {
+    console.log('500 million seconds passed!');
     switch (filter) {
         case 'all': return fakeTodos.todos;
         case 'active': return fakeTodos.todos.filter(t => !t.completed);
         case 'completed': return fakeTodos.todos.filter(t => t.completed);
         default:
-            throw new Error(`Unknon filter: ${filter}`);
+            throw new Error(`Unknown filter: ${filter}`);
     }
 });
