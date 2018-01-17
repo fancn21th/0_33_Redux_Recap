@@ -22,8 +22,8 @@ const fakeTodos = {
     ]
 };
 
-export const fetchTodos = (filter) => delay(500).then(() => {
-    console.log('500 million seconds passed!');
+export const fetchTodos = (filter) => delay(1500).then(() => {
+    console.log('1500 million seconds passed!');
     switch (filter) {
         case 'all': return fakeTodos.todos;
         case 'active': return fakeTodos.todos.filter(t => !t.completed);

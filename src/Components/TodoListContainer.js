@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getVisibleTodos } from "../Reducers";
+import { getVisibleTodos, getIsFetching } from "../Reducers";
 import TodoList from './TodoList';
 import toggleTodo from '../Actions/toggleTodo';
 import fetchTodos from '../Actions/fetchTodos';
+import requestTodos from '../Actions/requestTodos';
 
 class TodoListContainer extends Component {
     componentDidMount() {
@@ -18,12 +19,16 @@ class TodoListContainer extends Component {
     }
 
     fetchData() {
-        const { filter, fetchTodos } = this.props;
+        const { filter, requestTodos, fetchTodos } = this.props;
+        requestTodos(filter);
         fetchTodos(filter);
     }
 
     render() {
-        const { todos, toggleTodo } = this.props;
+        const { todos, toggleTodo, isFetching } = this.props;
+        if (isFetching && !todos.length) {
+            return <p>Loading...</p>;
+        }
         return (
            <TodoList
                todos={todos}
@@ -39,6 +44,7 @@ const mapStateToProps = (state, { match }) => {
         // for now the component do not rely on the state shape anymore
         todos: getVisibleTodos(state, filter),
         filter,
+        isFetching: getIsFetching(state, filter),
     }
 };
 
@@ -52,6 +58,7 @@ TodoListContainer = withRouter(
     connect(mapStateToProps, {
         toggleTodo, // mapDispatchToProps shorthand notation, no need to call dispatch explicitly
         fetchTodos,
+        requestTodos,
     })(TodoListContainer)
 );
 
