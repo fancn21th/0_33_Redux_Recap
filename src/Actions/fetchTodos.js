@@ -1,12 +1,5 @@
 import * as api from "../Api";
 import { getIsFetching } from '../Reducers';
-import requestTodos from '../Actions/requestTodos';
-
-const receiveTodos = (filter, response) => ({
-    type: 'RECEIVE_TODOS',
-    filter,
-    response,
-});
 
 // normally a action is a plain object
 // then it could be a promise supported by middleware like redux-promise
@@ -19,14 +12,29 @@ const fetchTodos = (filter) => (dispatch, getState) => {
         return Promise.resolve();
     }
 
-    dispatch(requestTodos(filter));
+    dispatch({
+        type: 'FETCH_TODOS_REQUEST',
+        filter,
+    });
 
     // The return value of the thunk becomes the return value of dispatching this thunk,
     // and I can use this to wait for the asynchronous operation to finish inside my component
     // in order to show a message or start an animation.
-    return api.fetchTodos(filter).then(response => {
-        dispatch(receiveTodos(filter, response));
-    });
+    return api.fetchTodos(filter).then(
+        response => {
+            dispatch({
+                type: 'FETCH_TODOS_SUCCESS',
+                filter,
+                response,
+            });
+        },
+        error => {
+            dispatch({
+                type: 'FETCH_TODOS_FAILURE',
+                filter,
+                message: error.message || 'Something went wrong.',
+            });
+        });
 }
 
 export default fetchTodos;

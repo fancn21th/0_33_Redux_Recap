@@ -31,4 +31,7 @@ todo XVIII
 - loading indicators
 
 todo XIX
-- introduce thunk by redux-thunk 
+- introduce thunk by redux-thunk
+
+todo XX
+- handle error in the thunk
