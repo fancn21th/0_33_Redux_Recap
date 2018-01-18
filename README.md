@@ -35,3 +35,4 @@ todo XIX
 
 todo XX
 - handle error in the thunk
+- add todo / toggle todo

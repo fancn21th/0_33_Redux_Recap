@@ -1,9 +1,11 @@
-import { v4 } from 'node-uuid';
+import * as api from "../Api";
 
-const addTodo = text => ({
-    type: 'ADD_TODO',
-    id: v4(),
-    text,
-})
+const addTodo = text => (dispatch) =>
+    api.addTodo(text).then(response => {
+       dispatch({
+           type: 'ADD_TODO_SUCCESS',
+           response,
+       });
+    });
 
-export default addTodo
+export default addTodo;

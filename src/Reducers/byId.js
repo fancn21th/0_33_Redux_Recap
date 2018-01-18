@@ -1,5 +1,11 @@
 const byId = (state = {}, action) => {
     switch (action.type) {
+        case 'ADD_TODO_SUCCESS':
+        case 'TOGGLE_TODO_SUCCESS':
+            return {
+                ...state,
+                [action.response.id]: action.response,
+            };
         case 'FETCH_TODOS_SUCCESS':
             const nextState = { ...state };
             action.response.forEach(todo => {
