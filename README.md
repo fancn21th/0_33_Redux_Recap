@@ -36,3 +36,8 @@ todo XIX
 todo XX
 - handle error in the thunk
 - add todo / toggle todo
+
+todo XXI
+- introduce normalizr to make response state shape in consistent
+- then refactor reducers accordingly
+- toggle todo complete
