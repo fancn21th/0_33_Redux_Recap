@@ -3,7 +3,7 @@ import * as schema from './schema';
 import * as api from "../Api";
 import { getIsFetching } from '../Reducers';
 
-// normally a action is a plain object
+// normally an action is a plain object
 // then it could be a promise supported by middleware like redux-promise
 // and then it could be a function by middleware like redux-thunk
 // the function take dispatch as well as getState as arguments
