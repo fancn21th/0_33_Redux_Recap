@@ -15,5 +15,5 @@ todo XIII
 
 todo XIV
 - use fake api in place of localStorage
-- make the dispatch method of store can handle Promise asn return object
+- make the dispatch method of store can handle Promise as param of action
  
